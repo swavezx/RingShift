@@ -1,5 +1,5 @@
 Confirmed working on Windows 10 and Windows 11, including systems with HVCI enabled.
-Targets FortniteClient-Win64-Shipping.exe.
+.
 
 **Credits**
 <table>
