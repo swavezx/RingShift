@@ -42,4 +42,4 @@ Kunai goes driverless by calling NtOpenSection on \Device\PhysicalMemory (via th
 RingShift skips physical memory entirely. KTHREAD.PreviousMode is patched to 0 and standard NT syscalls (NtReadVirtualMemory, NtWriteVirtualMemory, etc.) are used directly — no physical mapping, no VAD patching, no \Device\PhysicalMemory handle needed.
 
 
-![description](./ShowCase.PNG)
+![description](./ShowCase.png)
