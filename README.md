@@ -1,12 +1,15 @@
 Confirmed working on Windows 10 and Windows 11, including systems with HVCI enabled.
+Targets FortniteClient-Win64-Shipping.exe.
 
-
-<div align="center">
-Credits
+⚠️ Credits
+<table>
+<tr>
+<td>
 This project is a fork/modification of Kunai-Driverless by Leproxy.
-The vast majority of this codebase is his work. Full credit goes to him for the overall design and implementation.
-RingShift only replaces the physical memory layer with a syscall proxy — concretely syscall.h and syscall_stub.asm are the only files written from scratch.
-</div>
+The vast majority of this codebase is his work. Full credit goes to him for the overall design and implementation. RingShift only replaces the physical memory layer with a syscall proxy — concretely syscall.h and syscall_stub.asm are the only files written from scratch.
+</td>
+</tr>
+</table>
 
 How does it work?
 RingShift uses a BYOVD (Bring Your Own Vulnerable Driver) technique temporarily for the initial exploit.
@@ -49,7 +52,43 @@ Includes a 4-level page table cache (512 entries per level, 64-byte aligned) for
 
 Difference to Kunai
 Both projects share the same BYOVD bootstrap, privilege elevation, PDB resolver, and SSDT proxy. The difference is what happens after the driver is unloaded:
-KunaiRingShiftBackend\Device\PhysicalMemoryNT Syscall ProxyMethodNtOpenSection + MapViewOfFile (2GB chunks)NtReadVirtualMemory / NtWriteVirtualMemoryPreviousModePatched temporarily, then restoredKept patched for the sessionVAD PatchingYes — hides physical mappings from scannersNot neededPPLSets process as PPL Anti-Malware after setupNot yet implemented
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Kunai</th>
+<th>RingShift</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><b>Backend</b></td>
+<td><code>\Device\PhysicalMemory</code></td>
+<td>NT Syscall Proxy</td>
+</tr>
+<tr>
+<td><b>Method</b></td>
+<td><code>NtOpenSection</code> + <code>MapViewOfFile</code> (2GB chunks)</td>
+<td><code>NtReadVirtualMemory</code> / <code>NtWriteVirtualMemory</code></td>
+</tr>
+<tr>
+<td><b>PreviousMode</b></td>
+<td>Patched temporarily, then restored</td>
+<td>Kept patched for the session</td>
+</tr>
+<tr>
+<td><b>VAD Patching</b></td>
+<td>Yes — hides physical mappings from scanners</td>
+<td>Not needed</td>
+</tr>
+<tr>
+<td><b>PPL</b></td>
+<td>Sets process as PPL Anti-Malware after setup</td>
+<td>Not yet implemented</td>
+</tr>
+</tbody>
+</table>
 Kunai maps the entire physical address space into usermode and does r/w via direct pointer dereference. RingShift skips physical memory entirely and routes everything through kernel-context syscalls.
+
 
 ![banner](./Showcase.PNG)
