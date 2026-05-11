@@ -94,4 +94,6 @@ Kunai maps the entire physical address space into usermode and does r/w via dire
 ![banner](./Showcase.PNG)
 
 
+**INFO** read speeds can be drastically improved this is just some small poc**
+
 <h1 align="center">Star this repo if you like it and also go over to leproxys profile he got some cool repos you can take a look at !</h1>
